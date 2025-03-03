@@ -1,0 +1,18 @@
+[submodule "thermal_camera_ros2_docker"]
+	path = thermal_camera_ros2_docker
+	url = git@github.com:nguyen-v/thermal_camera_ros2_docker.git
+[submodule "camera_rpi5_ros2_docker"]
+	path = camera_rpi5_ros2_docker
+	url = git@github.com:nguyen-v/camera_rpi5_ros2_docker.git
+[submodule "10_axis_imu_ros2_docker"]
+	path = 10_axis_imu_ros2_docker
+	url = git@github.com:nguyen-v/10_axis_imu_ros2_docker.git
+[submodule "rplidar_ros2_docker"]
+	path = rplidar_ros2_docker
+	url = git@github.com:nguyen-v/rplidar_ros2_docker.git
+[submodule "omnibot_ros2_control_docker"]
+	path = omnibot_ros2_control_docker
+	url = git@github.com:nguyen-v/omnibot_ros2_control_docker.git
+[submodule "rosboard_ros2_docker"]
+	path = rosboard_ros2_docker
+	url = git@github.com:nguyen-v/rosboard_ros2_docker.git

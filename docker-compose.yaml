@@ -1,0 +1,71 @@
+services:
+  thermal_camera:
+    image: thermal_camera_ros2:latest
+    restart: always
+    command: >
+      ros2 launch thermal_camera thermal_camera_launch.py
+      colormap:=2 hud:=False orientation:=270 device:=/dev/camera/video_thermal
+    devices:
+      - /dev/camera/video_thermal
+    stdin_open: true
+    tty: true
+  
+  rgb_camera:
+    image: camera_ros
+    restart: always
+    command: ros2 run camera_ros camera_node
+    privileged: true
+    network_mode: host
+    volumes:
+      - /dev:/dev/
+      - /run/udev:/run/udev/
+    group_add:
+      - video
+    user: "${UID}:${GID}"
+    environment:
+      - HOME=/tmp
+    stdin_open: true
+    tty: true 
+
+  imu:
+    image: imu_ros2:latest
+    restart: always
+    devices:
+      - /dev/sensors/imu
+    tty: true
+    command: ros2 run imu imu_node --ros-args --param port_name:=/dev/sensors/imu
+
+  lidar:
+    image: sllidar_ros2:latest
+    restart: always
+    devices:
+      - /dev/sensors/rplidar
+    stdin_open: true
+    tty: true
+    command: ros2 launch sllidar_ros2 sllidar_c1_launch.py serial_port:=/dev/sensors/rplidar
+
+  omnibot_control:
+    image: omnibot_ros2_control:latest
+    restart: always
+    privileged: true
+    network_mode: host
+    volumes:
+      - /dev:/dev
+    user: "${UID}:${GID}"
+    environment:
+      - HOME=/tmp
+    stdin_open: true
+    tty: true
+    command: ros2 launch odrive_omnibot omnibot.launch.py
+
+  rosboard:
+    image: rosboard_ros2:latest
+    restart: always
+    network_mode: host
+    volumes:
+      - /dev:/dev
+    tty: true
+    user: "${UID}:${GID}"
+    environment:
+      - HOME=/tmp
+    command: ros2 run rosboard rosboard_node
