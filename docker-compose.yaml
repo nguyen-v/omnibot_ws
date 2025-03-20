@@ -13,7 +13,9 @@ services:
   rgb_camera:
     image: camera_ros
     restart: always
-    command: ros2 run camera_ros camera_node
+    # command: ros2 run camera_ros camera_node
+    command: ros2 run camera_ros camera_node --ros-args -p width:=1920 -p height:=800
+
     privileged: true
     network_mode: host
     volumes:
@@ -47,6 +49,8 @@ services:
   omnibot_control:
     image: omnibot_ros2_control:latest
     restart: always
+    depends_on:
+      - rosboard
     privileged: true
     network_mode: host
     volumes:
